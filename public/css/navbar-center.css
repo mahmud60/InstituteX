@@ -1,0 +1,26 @@
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  overflow: auto;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.navbar .navbar-right {
+  text-align: right;
+  padding-top: 5px;
+}
+
+@media (min-width: 768px) {
+  .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    overflow: auto;
+  }
+
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
+}

@@ -36,8 +36,8 @@ class MeetingController extends Controller
     public function create(Request $request) 
     { 
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string',
-            'start_time' => 'required|date',
+            //'topic' => 'required|string',
+            //'start_time' => 'required|date',
             'agenda' => 'string|nullable',
         ]);
         
@@ -51,11 +51,12 @@ class MeetingController extends Controller
     
         $path = 'users/me/meetings';
         $response = $this->zoomPost($path, [
-            'topic' => $data['topic'],
-            'type' => self::MEETING_TYPE_SCHEDULE,
-            'start_time' => $this->toZoomTimeFormat($data['start_time']),
-            'duration' => 30,
-            'agenda' => $data['agenda'],
+            //'topic' => $data['topic'],
+            'type' => self::MEETING_TYPE_RECURRING,
+            //'schedule_for' => "mahmudul.hasan1.cse@ulab.edu.bd",
+            //'start_time' => $this->toZoomTimeFormat($data['start_time']),
+            'duration' => 120,
+            //'agenda' => $data['agenda'],
             'settings' => [
                 'host_video' => false,
                 'participant_video' => false,
@@ -65,8 +66,10 @@ class MeetingController extends Controller
     
     
         return [
-            'success' => $response->status() === 201,
-            'data' => json_decode($response->body(), true),
+            //$x = json_decode($response->body()),
+            //dd($x),
+            //$response->body(),
+            json_decode($response->body(), true),
         ];
     }
 

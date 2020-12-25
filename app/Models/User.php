@@ -10,10 +10,14 @@ use Illuminate\Notifications\Notifiable;
 
 
 use Eloquent;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable 
 {
+    use LaratrustUserTrait;
     use HasFactory, Notifiable;
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +52,11 @@ class User extends Authenticatable
     public function classes()
     {
         return $this->hasMany('App\Models\ClassStudent');
+    }
+
+    public function coursesFaculty()
+    {
+        return $this->hasMany('App\Models\ClassFaculty');
     }
 
 }

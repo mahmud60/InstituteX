@@ -5,53 +5,52 @@ use App\Models\Meeting;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('index');
-    //echo Meeting::all();
 });
 
-Route::get('/lessons/{username}', function($username){
-    $user = User::where('name', $username)->firstOrFail();
-    
-    //$request = Request::create('/api/signature', 'GET');
 
-    //$signature = Route::dispatch($request);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    return view('class');
-    //dd($signature);
-});
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/lesson', function () {
-    return view('zoom');
-});
+// Admin routes
+Route::get('/admin','App\Http\Controllers\Admin\AdminController@index')->name('admin');
 
-Route::get('/class-lessons', function () {
-    return view('class');
-});
+Route::get('/admin/add-course','App\Http\Controllers\Admin\AdminController@addCourse');
+Route::post('/admin/add-course', 'App\Http\Controllers\Admin\AdminController@addCourseToDb')->name('add-course');
 
-Route::get('/meeting', function (){
+Route::get('/admin/add-faculty', 'App\Http\Controllers\Admin\AdminController@addFaculty');
+Route::post('/admin/add-faculty', 'App\Http\Controllers\Admin\AdminController@addFacultyToDb')->name('add-faculty');
+
+Route::get('/admin/create-classroom', 'App\Http\Controllers\Admin\AdminController@createClassroom');
+
+
+// Classroom routes
+Route::get('classroom/{userid}/{id}/stream', 'App\Http\Controllers\ClassroomController@class');
+
+Route::get('classroom/{userid}/{id}/people', 'App\Http\Controllers\ClassroomController@people');
+
+Route::get('classroom/{userid}/{id}/classwork', 'App\Http\Controllers\ClassroomController@classwork');
+
+Route::get('classroom/{userid}/{id}/meeting', function (){
     return view('meeting/meeting');
 });
 
-Route::get('classroom/{userid}/{id}', 'App\Http\Controllers\ClassroomController@class');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('classroom/{userid}/{id}/stream', 'App\Http\Controllers\ClassPostsController@createPost');
 
-Route::post('classroom/{userid}/{id}', 'App\Http\Controllers\ClassPostsController@createPost');
+Route::post('classroom/{userid}/{id}/delete', 'App\Http\Controllers\ClassPostsController@deletePost');
+
+Route::post('classroom/{userid}/{id}/comment', 'App\Http\Controllers\ClassPostsController@addComment');
+
+Route::post('classroom/{userid}/{id}/delete/comment', 'App\Http\Controllers\ClassPostsController@deleteComment');
+
+
+Route::post('classroom/{userid}/{id}/participation/audio', 'App\Http\Controllers\ClassParticipationController@participate');
+
