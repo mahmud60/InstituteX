@@ -34,6 +34,8 @@ Route::get('classroom/{userid}/{id}/people', 'App\Http\Controllers\ClassroomCont
 
 Route::get('classroom/{userid}/{id}/classwork', 'App\Http\Controllers\ClassroomController@classwork');
 
+Route::get('classroom/{userid}/{id}/participation', 'App\Http\Controllers\ClassroomController@participation');
+
 Route::get('classroom/{userid}/{id}/meeting', function (){
     return view('meeting/meeting');
 });

@@ -49,12 +49,12 @@
                             <a class="nav-link" id="meeting" href="meeting?name={{Auth::user()->name}}&mn={{ $meeting->meeting_link }}&pwd={{ $meeting->password }}&role=1&signature={{ $meeting->signature }}" role="tab" aria-controls="contact" aria-selected="false">Join Video Lesson</a>
                         </li>
                     @endif
-                    <!-- 
+                    
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
-                            <a class="nav-link" id="grades" href="" role="tab" aria-controls="contact" aria-selected="false">Participation</a>
+                            <a class="nav-link" id="participation" href="participation" role="tab" aria-controls="contact" aria-selected="false">Participation</a>
                         </li>
-                    @endif -->
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}">
                             Logout
