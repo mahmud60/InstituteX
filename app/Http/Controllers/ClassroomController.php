@@ -9,6 +9,7 @@ use App\Models\ClassFaculty;
 use App\Models\Meeting;
 use App\Models\Post;
 use App\Models\Course;
+use App\Models\Assignment;
 
 use Auth;
 
@@ -71,6 +72,24 @@ class ClassroomController extends Controller
 
         $course = Course::find($id);
         $meeting = Meeting::where('course_id',$id)->get()->first();
+        $assignments = Assignment::where('course_id',$id)->orderBy('id','desc')->get();
+
+        $data = array(
+            'userid' => $userid,
+            'courseid' => $id,
+            'course' => $course,
+            'meeting' => $meeting,
+            'assignments' => $assignments
+        );
+
+        return view('/classroom/classwork')->with($data);
+    }
+
+    public function participation($userid, $id)
+    {
+
+        $course = Course::find($id);
+        $meeting = Meeting::where('course_id',$id)->get()->first();
 
         $data = array(
             'userid' => $userid,
@@ -79,6 +98,6 @@ class ClassroomController extends Controller
             'meeting' => $meeting
         );
 
-        return view('/classroom/classwork')->with($data);
+        return view('/classroom/participation')->with($data);
     }
 }

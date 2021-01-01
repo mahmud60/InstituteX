@@ -17,7 +17,6 @@
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css'>
         <link rel="stylesheet" href="{{ asset('css/nstyle.css') }}">
 
-
     </head>
 
     <body>
@@ -46,12 +45,12 @@
 
                     @if($meeting!=null)
                         <li class="nav-item">
-                            <a class="nav-link" id="meeting" href="meeting?name={{Auth::user()->name}}&mn={{ $meeting->meeting_link }}&pwd={{ $meeting->password }}&role=1&signature={{ $meeting->signature }}" role="tab" aria-controls="contact" aria-selected="false">Join Video Lesson</a>
+                            <a class="nav-link" id="meeting" href="meeting?name={{Auth::user()->name}}&mn={{ $meeting->meeting_link }}&pwd={{ $meeting->password }}&role=1&signature={{ $meeting->signature }}" role="tab" aria-controls="contact" aria-selected="false">Join Live Class</a>
                         </li>
                     @endif
                     
                     @if(Auth::user()->user_type == 1)
-                        <li class="nav-item">
+                        <li class="nav-item {{ (request()->is('classroom/*/*/participation')) ? 'active' : '' }}">
                             <a class="nav-link" id="participation" href="participation" role="tab" aria-controls="contact" aria-selected="false">Participation</a>
                         </li>
                     @endif

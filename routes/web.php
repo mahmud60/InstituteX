@@ -40,6 +40,10 @@ Route::get('classroom/{userid}/{id}/meeting', function (){
     return view('meeting/meeting');
 });
 
+//classwork routes
+
+Route::get('classroom/{userid}/{id}/assignment', 'App\Http\Controllers\ClassWorkController@assignment');
+Route::post('classroom/{userid}/{id}/create-assignment', 'App\Http\Controllers\ClassWorkController@createAssignment');
 
 Auth::routes();
 
