@@ -36,14 +36,32 @@ Route::get('classroom/{userid}/{id}/classwork', 'App\Http\Controllers\ClassroomC
 
 Route::get('classroom/{userid}/{id}/participation', 'App\Http\Controllers\ClassroomController@participation');
 
+Route::get('classroom/{userid}/{id}/grades', 'App\Http\Controllers\ClassroomController@grades');
+
 Route::get('classroom/{userid}/{id}/meeting', function (){
     return view('meeting/meeting');
 });
 
-//classwork routes
+//Route::get('calendar', 'App\Http\Controllers\ClassWorkController@showCalendar');
+
+//assignment routes
 
 Route::get('classroom/{userid}/{id}/assignment', 'App\Http\Controllers\ClassWorkController@assignment');
 Route::post('classroom/{userid}/{id}/create-assignment', 'App\Http\Controllers\ClassWorkController@createAssignment');
+
+Route::get('classroom/{userid}/{id}/view-assignment/{assignmentId}','App\Http\Controllers\ClassWorkController@viewAssignment');
+Route::post('classroom/{userid}/{id}/view-assignment/{assignmentId}','App\Http\Controllers\ClassWorkController@submitAssignment');
+
+//quiz routes
+Route::get('classroom/{userid}/{id}/quiz', 'App\Http\Controllers\ClassWorkController@quiz');
+Route::post('classroom/{userid}/{id}/create-quiz', 'App\Http\Controllers\ClassWorkController@createQuiz');
+
+Route::get('classroom/{userid}/{id}/view-quiz/{quizId}/{qid}',['as' => 'quiz', 'uses' =>'App\Http\Controllers\ClassWorkController@viewQuiz']);
+//Route::get('classroom/{userid}/{id}/view-quiz/{quizId}/{qid}','App\Http\Controllers\ClassWorkController@viewQuizQuestion');
+Route::post('classroom/{userid}/{id}/view-quiz/{quizId}/{qid}','App\Http\Controllers\ClassWorkController@submitQuiz');
+
+Route::get('classroom/{userid}/{id}/create-question','App\Http\Controllers\ClassWorkController@question');
+Route::post('classroom/{userid}/{id}/create-question','App\Http\Controllers\ClassWorkController@createQuestion');
 
 Auth::routes();
 
@@ -60,3 +78,16 @@ Route::post('classroom/{userid}/{id}/delete/comment', 'App\Http\Controllers\Clas
 
 Route::post('classroom/{userid}/{id}/participation/audio', 'App\Http\Controllers\ClassParticipationController@participate');
 
+Route::get('classroom/{userid}/{id}/grade/', 'App\Http\Controllers\GradeController@index');
+Route::get('classroom/{userid}/{id}/grade-assignment', 'App\Http\Controllers\GradeController@viewAssignments');
+
+Route::post('classroom/{userid}/{id}/auto-grade', 'App\Http\Controllers\GradeController@autoGrade');
+Route::post('classroom/{userid}/{id}/grade', 'App\Http\Controllers\GradeController@grade');
+Route::post('classroom/{userid}/{id}/view-grade', 'App\Http\Controllers\GradeController@viewGrade');
+Route::post('classroom/{userid}/{id}/grade-quiz', 'App\Http\Controllers\GradeController@gradeQuiz');
+
+Route::post('classroom/{userid}/{id}/grade-assignment', 'App\Http\Controllers\GradeController@gradeAssignment');
+Route::post('classroom/{userid}/{id}/mark-assignment', 'App\Http\Controllers\GradeController@markAssignment');
+Route::post('classroom/{userid}/{id}/view-assignmentGrades', 'App\Http\Controllers\GradeController@viewAssignment');
+
+Route::post('classroom/{userid}/{id}/calculate-attendance', 'App\Http\Controllers\AttendanceController@attendanceCalculation');

@@ -59,4 +59,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\ClassFaculty');
     }
 
+    public function getName($userid)
+    {
+        $name = User::where('id',$userid)->get()->first();
+        return $name->name;
+    }
+
 }
